@@ -54,6 +54,7 @@ func (m *Manifest) Save(projectDir string) error {
 	data = append(data, '\n')
 	path := filepath.Join(projectDir, ManifestPath)
 	tmp := path + ".tmp"
+	_ = os.Remove(tmp) // 清掉上次被中断可能遗留的同名临时文件
 	if err := os.WriteFile(tmp, data, 0o644); err != nil {
 		return fmt.Errorf("write manifest: %w", err)
 	}
